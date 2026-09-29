@@ -1987,3 +1987,56 @@ footer {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* Newsletter and checkout messages, and the pages Stripe returns shoppers to. */
+.newsletter-note {
+  margin: 12px 0 0;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #766d62;
+}
+.checkout-error {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(155, 44, 34, 0.25);
+  background: rgba(155, 44, 34, 0.06);
+  color: #7c2b22;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.checkout-error a {
+  text-decoration: underline;
+}
+.order-page {
+  min-height: 100vh;
+  width: min(100% - 48px, 640px);
+  margin-inline: auto;
+  padding: 72px 0 96px;
+  display: grid;
+  align-content: center;
+  gap: 18px;
+}
+.order-page .wordmark {
+  margin-bottom: 36px;
+}
+.order-page h1 {
+  margin: 0;
+  font-family: var(--font-serif-custom), Georgia, serif;
+  font-size: clamp(48px, 8vw, 76px);
+  font-weight: 400;
+  line-height: 0.95;
+}
+.order-page p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4d463e;
+}
+.order-page p a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+.order-page .primary-link {
+  margin-top: 18px;
+  justify-self: start;
+}
