@@ -25,7 +25,9 @@ It was modelled on the Diamond Edge Athletics gym dashboard, which was used for 
 ## Decisions (2026-09-29)
 - **Scope:** finished decor products only. No custom print jobs, design services or wholesale.
 - **Payments:** Stripe on a new We+Make account, kept separate from the gym's. Test mode until `WM_STRIPE_LIVE=1`. Shopify is gone; its store was answering 402.
-- **Database:** Neon project `we-make-business` in Will's own Neon org (not Vercel-managed), so migrations can be run directly. Auth is Neon Auth, owner-only (`WM_OWNER_EMAIL`), and the email must be verified.
+- **Database:** Neon project `we-make-business` (id `shy-hill-88061969`, branch `main` = `br-wispy-hat-b7hzptnd`, us-east-1) in Will's own Neon org (not Vercel-managed), so migrations run directly through the Neon MCP. The initial migration and the launch-product seed were applied on 2026-09-29.
+- **Sign-in:** Neon Auth (Better Auth), owner-only (`WM_OWNER_EMAIL`), and the email must be verified. Email/password sign-ups aren't verified in this Neon Auth setup, so **sign in with Google**.
+- **Vercel:** project `we-make-business-dashboard` (`prj_RJHSfjCoCjQm7FvDdc4kHbq1ksUI`), root `apps/dashboard`. Standard protection: preview and deployment URLs need a Vercel login; the production domain is public. It holds non-secret env only (`WM_OWNER_EMAIL`, `NEXT_PUBLIC_APP_URL`, `WM_SITE_URL`, `NEON_AUTH_BASE_URL`).
 - **Stock:**
   - **Made-to-order** products (the default) sell when the shelf is empty; the shortfall appears as "to make" on the order and in Production.
   - **Stock-only** products show "Sold out" at zero.
@@ -48,7 +50,7 @@ It was modelled on the Diamond Edge Athletics gym dashboard, which was used for 
   - Create the new We+Make Stripe account.
   - Add the webhook endpoint (URL and events are on the dashboard's Connections page).
   - Paste `STRIPE_SECRET_KEY` (sk_test_…) and `STRIPE_WEBHOOK_SECRET` into Vercel.
-- [ ] **Sign in once** as the owner and verify the email.
+- [ ] **Sign in once** as the owner with Google.
 - [ ] **Enter real data:** material costs, printers, print hours and finishing minutes per product. Until then, margins show machine time and labor only.
 - [ ] **Later:**
   - A Resend key plus a verified sending domain, and the studio mailing address.
