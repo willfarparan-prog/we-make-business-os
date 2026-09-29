@@ -1,0 +1,11 @@
+# Both Vercel projects upload this monorepo and build their configured app root.
+node_modules
+**/node_modules
+**/.next
+**/.env*
+!**/.env.example
+.claude
+*.tsbuildinfo
+.DS_Store
+**/.local-db*
+**/.vercel
