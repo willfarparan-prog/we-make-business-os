@@ -33,7 +33,7 @@ It was modelled on the Diamond Edge Athletics gym dashboard, which was used for 
   - **Stock-only** products show "Sold out" at zero.
 - **Email:** newsletter sending stays **off** until a real sending domain is set up. It has three modes: off / test (owner only) / live (approved issues to consented subscribers). Live requires the studio's mailing address.
 - **Claude assistant:** on the product and newsletter pages. It only proposes changes; the owner clicks Apply. It stays off until `ANTHROPIC_API_KEY` is set.
-- **Preview deployments** of the dashboard are skipped (`vercel.json` ignoreCommand), because they would share the production database and keys.
+- **Preview deployments** of the dashboard are disabled in the Vercel project settings (not with an ignore command, which cancelled production builds too). Its secrets are Production-only anyway.
 
 ## Where things live (dashboard)
 - **Schema:** `src/db/schema.ts`, mirrored by `drizzle/*.sql`. Seed data is in `seeds/launch-products.sql`.
