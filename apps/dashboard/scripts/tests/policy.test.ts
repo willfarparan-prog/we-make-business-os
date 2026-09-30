@@ -14,6 +14,17 @@ test("only the owner's verified address opens the dashboard", () => {
   assert.equal(isVerifiedOwner("owner@example.com", true, undefined), false, "no owner configured means nobody");
 });
 
+test("the sign-in return page runs the auth middleware, and public endpoints don't", () => {
+  // Google sign-in lands on /auth/continue with a one-time verifier that only
+  // the middleware exchanges for the session cookie (dashboard/proxy.ts).
+  const proxy = readFileSync("proxy.ts", "utf8");
+  const matcher = proxy.slice(proxy.indexOf("matcher"));
+  assert.match(matcher, /"\/auth\/continue"/);
+  for (const open of ["/api/catalog", "/api/checkout", "/api/newsletter", "/api/webhooks", "/api/health", "/api/unsubscribe"]) {
+    assert.equal(matcher.includes(`"${open}`), false, `${open} must stay public`);
+  }
+});
+
 test("only the storefront's origins may call from a browser", () => {
   assert.equal(allowedOrigin("https://we-make.vercel.app"), "https://we-make.vercel.app");
   assert.equal(allowedOrigin("https://evil.example"), null);

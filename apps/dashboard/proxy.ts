@@ -11,10 +11,14 @@ export default devPreview ? () => NextResponse.next() : auth.middleware({ loginU
  * /api/newsletter), provider webhooks, unsubscribe links and /api/health must
  * stay reachable without a session, so they are deliberately not listed.
  * Every page and action still re-checks with requireOwner().
+ *
+ * /auth/continue must be listed: Google sign-in returns there with a one-time
+ * verifier, and only this middleware exchanges it for the session cookie.
  */
 export const config = {
   matcher: [
     "/",
+    "/auth/continue",
     "/products/:path*",
     "/orders/:path*",
     "/customers/:path*",
