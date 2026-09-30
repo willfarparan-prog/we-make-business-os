@@ -1,6 +1,6 @@
 /** Who gets in, and that nothing from the gym dashboard this was modelled on came along. */
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { test } from "node:test";
 import { isVerifiedOwner } from "@/lib/auth/policy";
@@ -16,8 +16,10 @@ test("only the owner's verified address opens the dashboard", () => {
 
 test("the sign-in return page runs the auth middleware, and public endpoints don't", () => {
   // Google sign-in lands on /auth/continue with a one-time verifier that only
-  // the middleware exchanges for the session cookie (dashboard/proxy.ts).
-  const proxy = readFileSync("proxy.ts", "utf8");
+  // the middleware exchanges for the session cookie. With the app in src/,
+  // Next.js only loads src/proxy.ts; a proxy.ts beside src/ is silently ignored.
+  assert.equal(existsSync("proxy.ts"), false, "proxy.ts must live in src/, or Next.js never runs it");
+  const proxy = readFileSync("src/proxy.ts", "utf8");
   const matcher = proxy.slice(proxy.indexOf("matcher"));
   assert.match(matcher, /"\/auth\/continue"/);
   for (const open of ["/api/catalog", "/api/checkout", "/api/newsletter", "/api/webhooks", "/api/health", "/api/unsubscribe"]) {
@@ -40,7 +42,7 @@ function files(directory: string): string[] {
 
 test("no gym leftovers: names, env prefixes, project ids or the old Shopify store", () => {
   const banned = /diamond|\bDEA_|\bdea[_.:]|\bgym\b|prj_68RS|prj_VFA|myshopify/i;
-  for (const file of [...files("src"), ...files("drizzle"), ...files("seeds"), "proxy.ts", "next.config.ts", "vercel.json"]) {
+  for (const file of [...files("src"), ...files("drizzle"), ...files("seeds"), "next.config.ts", "vercel.json"]) {
     const text = readFileSync(file, "utf8");
     const hit = text.match(banned);
     assert.equal(hit, null, `${file} mentions "${hit?.[0]}"`);
