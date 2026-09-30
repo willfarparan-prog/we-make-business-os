@@ -28,6 +28,7 @@ It was modelled on the Diamond Edge Athletics gym dashboard, which was used for 
 - **Database:** Neon project `we-make-business` (id `shy-hill-88061969`, branch `main` = `br-wispy-hat-b7hzptnd`, us-east-1) in Will's own Neon org (not Vercel-managed), so migrations run directly through the Neon MCP. The initial migration and the launch-product seed were applied on 2026-09-29.
 - **Sign-in:** Neon Auth (Better Auth), owner-only (`WM_OWNER_EMAIL`), and the email must be verified. Email/password sign-ups aren't verified in this Neon Auth setup, so **sign in with Google**.
 - **Vercel:** project `we-make-business-dashboard` (`prj_RJHSfjCoCjQm7FvDdc4kHbq1ksUI`), root `apps/dashboard`. Standard protection: preview and deployment URLs need a Vercel login; the production domain is public. It holds non-secret env only (`WM_OWNER_EMAIL`, `NEXT_PUBLIC_APP_URL`, `WM_SITE_URL`, `NEON_AUTH_BASE_URL`).
+- **Git and deploys (2026-09-30):** both Vercel projects deploy from `willfarparan-prog/we-make-business-os` (`main`), with roots `apps/dashboard` and `apps/site`. Vercel skips a project whose files a commit didn't touch. The `we-make` project used to be connected to the separate `lumaform` repo (an earlier Lumaform storefront with Supabase); that link was removed with Will's OK, and the `lumaform` repo itself is untouched. The storefront's pre-switch deployment `dpl_8oN8BagRTJueiR8S2TqfmWtqvDLu` is the rollback point. The unused `NEXT_PUBLIC_SUPABASE_*` vars on `we-make` belong to Lumaform.
 - **Stock:**
   - **Made-to-order** products (the default) sell when the shelf is empty; the shortfall appears as "to make" on the order and in Production.
   - **Stock-only** products show "Sold out" at zero.
@@ -44,8 +45,7 @@ It was modelled on the Diamond Edge Athletics gym dashboard, which was used for 
 - **Tests:** `scripts/tests/*.test.ts` (in-memory Postgres, fake Stripe, captured email).
 
 ## Waiting on Will
-- [ ] **Create the empty private GitHub repo** and allow the Vercel GitHub app to access it.
-- [ ] **Paste the database and sign-in secrets into Vercel.** Project `we-make-business-dashboard` → Settings → Environment Variables (Production): `DATABASE_URL` and `NEON_AUTH_COOKIE_SECRET`.
+- [x] GitHub repo created; database and sign-in secrets added to Vercel (2026-09-30).
 - [ ] **Set up Stripe:**
   - Create the new We+Make Stripe account.
   - Add the webhook endpoint (URL and events are on the dashboard's Connections page).
