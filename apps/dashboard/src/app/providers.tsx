@@ -15,6 +15,10 @@ export function Providers({ children }: { children: ReactNode }) {
       authClient={authClient}
       baseURL={appOrigin}
       defaultTheme="light"
+      // Google only: the owner check needs a verified email, and Neon Auth
+      // doesn't verify email/password sign-ups here.
+      social={{ providers: ["google"] }}
+      credentials={false}
       redirectTo="/auth/continue"
       navigate={router.push}
       replace={router.replace}
