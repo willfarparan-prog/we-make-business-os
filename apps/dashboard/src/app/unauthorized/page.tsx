@@ -7,7 +7,7 @@ export default function UnauthorizedPage() {
         <p className="wm-eyebrow">We+Make studio</p>
         <h1 className="wm-display" style={{ margin: "10px 0 14px" }}>Owner access only</h1>
         <p className="wm-muted" style={{ marginBottom: 26 }}>
-          This dashboard only opens for the studio owner, signed in with Google (which confirms the email address). If that&apos;s you, sign out and choose Continue with Google.
+          This dashboard only opens for the studio owner, signed in with Google (which confirms the email address). If that&apos;s you, sign out and choose Sign in with Google.
         </p>
         <Link className="wm-button" href="/auth/sign-out">Sign out</Link>
       </section>

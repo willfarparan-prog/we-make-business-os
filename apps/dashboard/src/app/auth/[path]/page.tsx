@@ -25,7 +25,7 @@ export default async function AuthPage({ params }: { params: Promise<{ path: str
       <section className={styles.authPanel}>
         <div className={styles.notice}>
           <strong>Owner access</strong>
-          <small>Use <strong>Continue with Google</strong> with the studio owner&apos;s Google account. Other accounts can&apos;t open the dashboard.</small>
+          <small>Use <strong>Sign in with Google</strong> with the studio owner&apos;s Google account. Other accounts can&apos;t open the dashboard.</small>
         </div>
         <AuthView path={path} />
       </section>
